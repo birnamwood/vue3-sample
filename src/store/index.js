@@ -1,28 +1,30 @@
 import { createStore } from 'vuex'
 
-const savedSections = localStorage.getItem('board-sections')
+const savedTasks = localStorage.getItem('tasks')
 
 const store = createStore({
   state: {
-    sections: savedSections ? JSON.parse(savedSections): []
+    tasks: savedTasks ? JSON.parse(savedTasks): []
   },
   getters: {
   },
   mutations: {
-    ceateSection(state, payload) {
-      state.sections.push( {title: payload.title, tasks:[]})
+    createTask(state, payload) {
+      state.tasks.push( {title: payload.title})
     }
   },
   actions: {
-    ceateSection(context, payload) {
-      context.commit('createSection', payload)
+    createTask(context, payload) {
+      console.log('set')
+      context.commit('createTask', payload)
     }
   },
   modules: {
   }
 })
 store.subscribe((mutation, state) => {
-  localStorage.setItem('board-sections', JSON.stringify(state.sections))
+  console.log(state.tasks)
+  localStorage.setItem('tasks', JSON.stringify(state.tasks))
 })
 
 export default store
